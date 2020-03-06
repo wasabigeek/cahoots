@@ -22,11 +22,22 @@ const CurrentQuestion = props => {
       //.catch
   }, []);
 
-  return (
-    <div>
-      <div>{question ? question.get('Name') : null}</div>
-    </div>
-  )
+  if (question) {
+    return (
+      <div>
+        <div>{question.get('Name')}</div>
+        <ol>
+          <li>{question.get('Answer A')}</li>
+          <li>{question.get('Answer B')}</li>
+          <li>{question.get('Answer C')}</li>
+          <li>{question.get('Answer D')}</li>
+        </ol>
+      </div>
+    )
+  }
+  else {
+    return <div>No more questions!</div>
+  }
 };
 
 function App() {
