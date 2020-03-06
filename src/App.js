@@ -5,31 +5,26 @@ var Airtable = require('airtable')
 Airtable.configure({endpointUrl: 'https://api.airtable.com', apiKey: process.env.REACT_APP_AIRTABLE_API_KEY})
 var base = Airtable.base('appSUNCUlDaS37SeJ')
 
-const Hello = props => {
-  const [questions, setQuestions] = useState([]);
+const CurrentQuestion = props => {
+  const [question, setQuestion] = useState(null);
 
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
-    base('Question')
-      .select()
-      .eachPage((records, fetchNextPage) => {
-        // This function (`page`) will get called for each page of records.
-        setQuestions(records.concat(questions))
-
-        // To fetch the next page of records, call `fetchNextPage`.
-        // If there are more records, `page` will get called again.
-        // If there are no more records, `done` will get called.
-        fetchNextPage()
-        console.log(questions)
-    }, function done(err) {
-        if (err) { console.error(err); return; }
-    })
+    base('Questions')
+      .select({
+        // pick next unfinished question
+        filterByFormula: `IS_AFTER({Finished At}, NOW())`,
+        maxRecords: 1,
+        sort: [{field: "Finished At", direction: "asc"}]
+      })
+      .firstPage()
+      .then(questions => setQuestion(questions[0]))
+      //.catch
   }, []);
 
-  console.log(questions)
   return (
     <div>
-      {questions.map(question => <div>{question.get('Name')}</div>)}
+      <div>{question ? question.get('Name') : null}</div>
     </div>
   )
 };
@@ -37,7 +32,7 @@ const Hello = props => {
 function App() {
   return (
     <div className="App">
-      <Hello/>
+      <CurrentQuestion />
     </div>
   );
 }
