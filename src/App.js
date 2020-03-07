@@ -40,10 +40,33 @@ const CurrentQuestion = props => {
   }
 };
 
+const UrlGenerator = props => {
+  const [apiKey, setApiKey] = useState('');
+  const [baseId, setBaseId] = useState('');
+  const gameId = window.btoa([apiKey, baseId].join('__'))
+  return (
+    <div>
+      <div>
+        <label>
+          API Key:
+          <input value={apiKey} onChange={e => setApiKey(e.target.value)} />
+        </label>
+        <label>
+          Base ID:
+          <input value={baseId} onChange={e => setBaseId(e.target.value)} />
+        </label>
+      </div>
+      <div>
+        {`${window.location}?gameId=${encodeURI(gameId)}`}
+      </div>
+    </div>
+  )
+}
+
 function App() {
   return (
     <div className="App">
-      <CurrentQuestion />
+      <UrlGenerator />
     </div>
   );
 }
