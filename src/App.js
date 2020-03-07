@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import Airtable from 'airtable';
 import './App.css';
 
-var Airtable = require('airtable')
-Airtable.configure({endpointUrl: 'https://api.airtable.com', apiKey: process.env.REACT_APP_AIRTABLE_API_KEY})
-var base = Airtable.base('appSUNCUlDaS37SeJ')
+
+const initDatabase = gameId => {
+  const [apiKey, baseId] = atob(gameId).split('__')
+  console.log(apiKey, baseId)
+  Airtable.configure({endpointUrl: 'https://api.airtable.com', apiKey})
+  return Airtable.base(baseId)
+}
 
 const CurrentQuestion = props => {
   const [question, setQuestion] = useState(null);
 
-  // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
-    base('Questions')
+    const gameId = new URLSearchParams(window.location.search).get('gameId')
+
+    initDatabase(gameId)('Questions')
       .select({
         // pick next unfinished question
         filterByFormula: `IS_AFTER({Finished At}, NOW())`,
@@ -63,10 +69,18 @@ const UrlGenerator = props => {
   )
 }
 
+// const HostHub = props => {
+//   return (
+//     <div>
+//       <div></div>
+//     </div>
+//   )
+// }
+
 function App() {
   return (
     <div className="App">
-      <UrlGenerator />
+      <CurrentQuestion />
     </div>
   );
 }
