@@ -1,4 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams,
+} from "react-router-dom";
 import Airtable from 'airtable';
 import './App.css';
 
@@ -62,26 +69,46 @@ const UrlGenerator = props => {
           <input value={baseId} onChange={e => setBaseId(e.target.value)} />
         </label>
       </div>
+      <Link to={`/games/${encodeURI(gameId)}/host`}>
+        <button>Host Game</button>
+      </Link>
       <div>
-        {`${window.location}?gameId=${encodeURI(gameId)}`}
+        Join URL:
+        {`${window.location}games/${encodeURI(gameId)}/join`}
       </div>
     </div>
   )
 }
 
-// const HostHub = props => {
-//   return (
-//     <div>
-//       <div></div>
-//     </div>
-//   )
-// }
+const onStart = (gameId) => {
+  console.log(gameId)
+}
+
+const HostRoute = props => {
+  let { gameId } = useParams()
+
+  return (
+    <div>
+      <button onClick={() => onStart(gameId)}>Start Game</button>
+    </div>
+  )
+}
 
 function App() {
   return (
-    <div className="App">
-      <CurrentQuestion />
-    </div>
+    <Router>
+      <div className="App">
+        <Switch>
+          <Route path="/games/:gameId/host">
+            <HostRoute />
+          </Route>
+          <Route path="/games/:gameId/play" children={CurrentQuestion} />
+          <Route path="/">
+            <UrlGenerator />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
