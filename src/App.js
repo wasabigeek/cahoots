@@ -4,29 +4,21 @@ import {
   Switch,
   Route,
   Link,
+  useParams,
 } from "react-router-dom";
 import './App.css';
 
 import HostRoute from './routes/HostRoute'
-import initDatabase from './utils/GameDatabase'
+import GameDatabase from './utils/GameDatabase'
 
 
 const CurrentQuestion = props => {
+  let { gameId } = useParams()
   const [question, setQuestion] = useState(null);
 
   useEffect(() => {
-    const gameId = new URLSearchParams(window.location.search).get('gameId')
-
-    initDatabase(gameId)('Questions')
-      .select({
-        // pick next unfinished question
-        filterByFormula: `IS_AFTER({Finished At}, NOW())`,
-        maxRecords: 1,
-        sort: [{field: "Finished At", direction: "asc"}]
-      })
-      .firstPage()
-      .then(questions => setQuestion(questions[0]))
-      //.catch
+    const database = new GameDatabase({ gameId })
+    database.getCurrentQuestion().then(data => setQuestion(data))
   }, []);
 
   if (question) {
@@ -82,7 +74,9 @@ function App() {
           <Route path="/games/:gameId/host">
             <HostRoute />
           </Route>
-          <Route path="/games/:gameId/play" children={CurrentQuestion} />
+          <Route path="/games/:gameId/play">
+            <CurrentQuestion />
+          </Route>
           <Route path="/">
             <UrlGenerator />
           </Route>
