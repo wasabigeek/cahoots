@@ -4,10 +4,10 @@ import {
   Switch,
   Route,
   Link,
-  useParams,
 } from "react-router-dom";
 import Airtable from 'airtable';
 import './App.css';
+import HostRoute from './routes/HostRoute'
 
 
 const initDatabase = gameId => {
@@ -76,20 +76,6 @@ const UrlGenerator = props => {
         Join URL:
         {`${window.location}games/${encodeURI(gameId)}/join`}
       </div>
-    </div>
-  )
-}
-
-const onStart = (gameId) => {
-  console.log(gameId)
-}
-
-const HostRoute = props => {
-  let { gameId } = useParams()
-
-  return (
-    <div>
-      <button onClick={() => onStart(gameId)}>Start Game</button>
     </div>
   )
 }
