@@ -5,6 +5,9 @@ class Game {
     const [apiKey, baseId] = atob(gameId).split('__')
     Airtable.configure({endpointUrl: 'https://api.airtable.com', apiKey})
     this.game = Airtable.base(baseId)
+
+    this.startNextQuestion = this.startNextQuestion.bind(this)
+    this.getCurrentQuestion = this.getCurrentQuestion.bind(this)
   }
 
   // for future "list all" type calls
@@ -61,7 +64,7 @@ class Game {
         // pick next unfinished question
         filterByFormula: `IS_AFTER({Finished At}, NOW())`,
         maxRecords: 1,
-        sort: [{field: "Finished At", direction: "asc"}]
+        // sort: [{field: "Finished At", direction: "asc"}]
       })
       .firstPage()
       .then(questions => data = questions[0])

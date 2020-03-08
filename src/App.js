@@ -10,6 +10,7 @@ import './App.css';
 
 import HostRoute from './routes/HostRoute'
 import Game from './utils/Game'
+import Question from './utils/Question';
 
 
 const CurrentQuestion = props => {
@@ -22,17 +23,7 @@ const CurrentQuestion = props => {
   }, []);
 
   if (question) {
-    return (
-      <div>
-        <div>{question.get('Name')}</div>
-        <ol>
-          <li>{question.get('Answer A')}</li>
-          <li>{question.get('Answer B')}</li>
-          <li>{question.get('Answer C')}</li>
-          <li>{question.get('Answer D')}</li>
-        </ol>
-      </div>
-    )
+    return <Question data={question} />
   }
   else {
     return <div>No more questions!</div>
