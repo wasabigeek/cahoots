@@ -1,8 +1,10 @@
 import React from 'react';
 import { useParams } from "react-router-dom";
+import GameDatabase from '../utils/GameDatabase';
 
 const onStart = (gameId) => {
-  console.log(gameId)
+  const database = new GameDatabase({ gameId })
+  database.startNextQuestion()
 }
 
 const HostRoute = props => {
