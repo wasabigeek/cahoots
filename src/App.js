@@ -9,7 +9,7 @@ import {
 import './App.css';
 
 import HostRoute from './routes/HostRoute'
-import GameDatabase from './utils/GameDatabase'
+import Game from './utils/Game'
 
 
 const CurrentQuestion = props => {
@@ -17,8 +17,8 @@ const CurrentQuestion = props => {
   const [question, setQuestion] = useState(null);
 
   useEffect(() => {
-    const database = new GameDatabase({ gameId })
-    database.getCurrentQuestion().then(data => setQuestion(data))
+    const game = new Game({ gameId })
+    game.getCurrentQuestion().then(data => setQuestion(data))
   }, []);
 
   if (question) {

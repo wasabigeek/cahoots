@@ -1,11 +1,10 @@
 import Airtable from 'airtable';
 
-class GameDatabase {
+class Game {
   constructor({ gameId }) {
     const [apiKey, baseId] = atob(gameId).split('__')
-    console.log(apiKey)
     Airtable.configure({endpointUrl: 'https://api.airtable.com', apiKey})
-    this.database = Airtable.base(baseId)
+    this.game = Airtable.base(baseId)
   }
 
   // for future "list all" type calls
@@ -23,7 +22,7 @@ class GameDatabase {
   // })
 
   async startNextQuestion() {
-    const nextQuestions = await this.database('Questions')
+    const nextQuestions = await this.game('Questions')
       .select({
         filterByFormula: `{Finished At} = BLANK()`,
         maxRecords: 1,
@@ -38,7 +37,7 @@ class GameDatabase {
 
     // add 20 seconds
     const finishedTime = new Date(Date.now() + 20000)
-    this.database('Questions').update([
+    this.game('Questions').update([
       {
         "id": nextQuestion.id,
         "fields": { "Finished At": `${finishedTime.toISOString()}` }
@@ -57,7 +56,7 @@ class GameDatabase {
 
   async getCurrentQuestion() {
     let data = null
-    await this.database('Questions')
+    await this.game('Questions')
       .select({
         // pick next unfinished question
         filterByFormula: `IS_AFTER({Finished At}, NOW())`,
@@ -72,4 +71,4 @@ class GameDatabase {
   }
 }
 
-export default GameDatabase
+export default Game

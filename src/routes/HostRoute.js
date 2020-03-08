@@ -1,10 +1,10 @@
 import React from 'react';
 import { useParams } from "react-router-dom";
-import GameDatabase from '../utils/GameDatabase';
+import Game from '../utils/Game';
 
 const onStart = (gameId) => {
-  const database = new GameDatabase({ gameId })
-  database.startNextQuestion()
+  const game = new Game({ gameId })
+  game.startNextQuestion()
 }
 
 const HostRoute = props => {
