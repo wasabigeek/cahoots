@@ -5,17 +5,11 @@ import {
   Route,
   Link,
 } from "react-router-dom";
-import Airtable from 'airtable';
 import './App.css';
+
 import HostRoute from './routes/HostRoute'
+import initDatabase from './utils/GameDatabase'
 
-
-const initDatabase = gameId => {
-  const [apiKey, baseId] = atob(gameId).split('__')
-  console.log(apiKey, baseId)
-  Airtable.configure({endpointUrl: 'https://api.airtable.com', apiKey})
-  return Airtable.base(baseId)
-}
 
 const CurrentQuestion = props => {
   const [question, setQuestion] = useState(null);
