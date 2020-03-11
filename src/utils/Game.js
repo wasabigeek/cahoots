@@ -45,16 +45,14 @@ class Game {
 
   async getCurrentQuestion() {
     let data = null
-    await this.game('Questions')
-      .select({
-        // pick next unfinished question
-        filterByFormula: `IS_AFTER({Finished At}, NOW())`,
-        maxRecords: 1,
-        // sort: [{field: "Finished At", direction: "asc"}]
+    // filters seem to take longer to update, so we do it ourselves
+    await this.getAllQuestions()
+      .then(questions => {
+        data = questions.find(q => {
+          let finished = q.get('Finished At') ? new Date(q.get('Finished At')) : new Date + 1
+          return finished > new Date
+        })
       })
-      .firstPage()
-      .then(questions => data = questions[0])
-      // catch
 
     return data
   }

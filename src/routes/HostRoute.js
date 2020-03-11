@@ -7,17 +7,17 @@ import Question from '../utils/Question'
 
 const HostRoute = props => {
   let { gameId } = useParams()
-  const [questions, setQuestions] = useState([])
+  const [question, setQuestion] = useState(null)
   const game = new Game({ gameId })
 
   useEffect(() => {
-    game.getAllQuestions().then(setQuestions)
+    game.getCurrentQuestion().then(setQuestion)
   }, [])
-  console.log(questions)
+
   return (
     <div>
-      { questions.map(q => <Question data={q} />) }
-      <button onClick={() => game.startNextQuestion().then(game.getAllQuestions).then(setQuestions) }>Next Question</button>
+      { question ? <Question data={question} /> : null }
+      <button onClick={() => game.startNextQuestion().then(() => game.getCurrentQuestion().then(setQuestion)) }>Next Question</button>
     </div>
   )
 }
