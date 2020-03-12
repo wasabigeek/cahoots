@@ -23,11 +23,15 @@ const PlayRoute = props => {
   let { gameId } = useParams()
   const [playerName, setPlayerName] = useState('')
   const [playerId, setPlayerId] = useState('')
-  const [question, setQuestion] = useState(null);
   const game = new Game({ gameId })
 
   if (playerId) {
-    return <div>No more questions!</div>
+    return <div>
+      <button onClick={() => game.addAnswer(playerId, 'A')}>A</button>
+      <button onClick={() => game.addAnswer(playerId, 'B')}>B</button>
+      <button onClick={() => game.addAnswer(playerId, 'C')}>C</button>
+      <button onClick={() => game.addAnswer(playerId, 'D')}>D</button>
+    </div>
   }
   else {
     return <JoinForm

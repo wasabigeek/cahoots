@@ -18,6 +18,19 @@ class Game {
       // .catch
   }
 
+  async addAnswer(playerId, answer) {
+    const questionId = await this.getCurrentQuestion().then(record => record.getId())
+
+    return this.game('Answers')
+      .create({
+        "Answer": answer,
+        "Player": [ playerId ],
+        "Question": [ questionId ]
+      })
+      .then(record => record.getId())
+      // .catch
+  }
+
   getAllQuestions() {
     return this.game('Questions')
       .select({ sort: [{field: "Order", direction: "asc"}] })
