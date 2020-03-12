@@ -33,7 +33,7 @@ const CurrentQuestion = props => {
 const UrlGenerator = props => {
   const [apiKey, setApiKey] = useState('');
   const [baseId, setBaseId] = useState('');
-  const gameId = window.btoa([apiKey, baseId].join('__'))
+  const gameId = window.btoa(JSON.stringify({apiKey, baseId}))
   return (
     <div>
       <div>

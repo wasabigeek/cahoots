@@ -2,7 +2,7 @@ import Airtable from 'airtable';
 
 class Game {
   constructor({ gameId }) {
-    const [apiKey, baseId] = atob(gameId).split('__')
+    const { apiKey, baseId } = JSON.parse(atob(gameId))
     Airtable.configure({endpointUrl: 'https://api.airtable.com', apiKey})
     this.game = Airtable.base(baseId)
 
