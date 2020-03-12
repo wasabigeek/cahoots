@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom"
 
 import Game from '../utils/Game'
 import Question from '../utils/Question'
+import TimeCounter from '../utils/TimeCounter'
 
 
 const JoinForm = ({ playerName, setPlayerName, joinGame }) => {
@@ -23,11 +24,13 @@ const PlayRoute = props => {
   let { gameId } = useParams()
   const [playerName, setPlayerName] = useState('')
   const [playerId, setPlayerId] = useState('')
+  const [question, setQuestion] = useState(null)
   const game = new Game({ gameId })
 
   if (playerId) {
     return <div>
-      <button onClick={() => game.addAnswer(playerId, 'A')}>A</button>
+      {question ? <TimeCounter till={new Date(question.get('Finished At'))} /> : null }
+      <button onClick={() => game.addAnswer(playerId, 'A').then(({ question }) => setQuestion(question))}>A</button>
       <button onClick={() => game.addAnswer(playerId, 'B')}>B</button>
       <button onClick={() => game.addAnswer(playerId, 'C')}>C</button>
       <button onClick={() => game.addAnswer(playerId, 'D')}>D</button>

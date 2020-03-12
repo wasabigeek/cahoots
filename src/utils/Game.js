@@ -19,15 +19,15 @@ class Game {
   }
 
   async addAnswer(playerId, answer) {
-    const questionId = await this.getCurrentQuestion().then(record => record.getId())
+    const question = await this.getCurrentQuestion()
 
     return this.game('Answers')
       .create({
         "Answer": answer,
         "Player": [ playerId ],
-        "Question": [ questionId ]
+        "Question": [ question.getId() ]
       })
-      .then(record => record.getId())
+      .then(record => { return { answer: record, question: question }})
       // .catch
   }
 
