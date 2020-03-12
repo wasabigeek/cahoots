@@ -13,7 +13,7 @@ const JoinForm = ({ playerName, setPlayerName, joinGame }) => {
           Name: <input value={playerName} onChange={e => setPlayerName(e.target.value)} />
         </label>
       </div>
-      <button>JOIN</button>
+      <button onClick={joinGame}>JOIN</button>
     </div>
   )
 }
@@ -22,18 +22,22 @@ const JoinForm = ({ playerName, setPlayerName, joinGame }) => {
 const PlayRoute = props => {
   let { gameId } = useParams()
   const [playerName, setPlayerName] = useState('')
-  const [joined, setJoined] = useState(false)
+  const [playerId, setPlayerId] = useState('')
   const [question, setQuestion] = useState(null);
   const game = new Game({ gameId })
 
-  if (joined) {
+  if (playerId) {
     return <div>No more questions!</div>
   }
   else {
     return <JoinForm
       playerName={playerName}
       setPlayerName={setPlayerName}
-      joinGame={() => console.log('hello')}
+      joinGame={() => {
+        game
+        .addPlayer(playerName)
+        .then(setPlayerId)
+      }}
     />
   }
 }

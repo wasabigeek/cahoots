@@ -11,6 +11,13 @@ class Game {
     this.getCurrentQuestion = this.getCurrentQuestion.bind(this)
   }
 
+  addPlayer(playerName) {
+    return this.game('Players')
+      .create({"Name": playerName})
+      .then(record => record.getId())
+      // .catch
+  }
+
   getAllQuestions() {
     return this.game('Questions')
       .select({ sort: [{field: "Order", direction: "asc"}] })
