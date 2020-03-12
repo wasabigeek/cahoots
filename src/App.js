@@ -1,34 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link,
-  useParams,
 } from "react-router-dom";
 import './App.css';
 
 import HostRoute from './routes/HostRoute'
-import Game from './utils/Game'
-import Question from './utils/Question';
+import PlayRoute from './routes/PlayRoute'
 
-
-const CurrentQuestion = props => {
-  let { gameId } = useParams()
-  const [question, setQuestion] = useState(null);
-
-  useEffect(() => {
-    const game = new Game({ gameId })
-    game.getCurrentQuestion().then(data => setQuestion(data))
-  }, []);
-
-  if (question) {
-    return <Question data={question} />
-  }
-  else {
-    return <div>No more questions!</div>
-  }
-};
 
 const UrlGenerator = props => {
   const [apiKey, setApiKey] = useState('');
@@ -66,7 +47,7 @@ function App() {
             <HostRoute />
           </Route>
           <Route path="/games/:gameId/play">
-            <CurrentQuestion />
+            <PlayRoute />
           </Route>
           <Route path="/">
             <UrlGenerator />
