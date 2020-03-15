@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router-dom"
 
 import Game from '../utils/Game'
 import Question from '../utils/Question'
-import TimeCounter from '../utils/TimeCounter'
+import { TimeCounter } from '../utils/TimeCounter'
 
 
 const JoinForm = ({ playerName, setPlayerName, joinGame }) => {
