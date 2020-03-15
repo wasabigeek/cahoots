@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"
 
 import Game from '../utils/Game'
 import Question from '../utils/Question'
-import { TimeCounter } from '../utils/TimeCounter'
+import { TimeCounter, calculateTimeLeft } from '../utils/TimeCounter'
 
 
 const HostRoute = props => {
@@ -21,6 +21,7 @@ const HostRoute = props => {
         <div>
           <Question data={question} />
           <TimeCounter till={new Date(question.get('Finished At'))} />
+          <button onClick={() => game.calculateResult(question.getId()) }>Show Result</button>
         </div>
         : null
       }

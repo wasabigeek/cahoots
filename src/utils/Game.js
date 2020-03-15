@@ -37,6 +37,22 @@ class Game {
       .all()
   }
 
+  async calculateResult(questionId) {
+    let answerIds = await this.game('Questions')
+      .find(questionId)
+      .then(record => record.get('Answers'))
+
+    const formula = `OR(${answerIds.map(id => `RECORD_ID()="${id}"`).join(',')})`
+
+    return this.game('Answers')
+      .select({
+        filterByFormula: formula
+      })
+      .all()
+
+      //TODO: Actually calculate
+  }
+
   async startNextQuestion() {
     const nextQuestions = await this.game('Questions')
       .select({
