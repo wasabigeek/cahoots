@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 
 import Game from '../utils/Game'
 import Question from '../utils/Question'
+import TimeCounter from '../utils/TimeCounter'
 
 
 const HostRoute = props => {
@@ -16,7 +17,13 @@ const HostRoute = props => {
 
   return (
     <div>
-      { question ? <Question data={question} /> : null }
+      { question ?
+        <div>
+          <Question data={question} />
+          <TimeCounter till={new Date(question.get('Finished At'))} />
+        </div>
+        : null
+      }
       <button onClick={() => game.startNextQuestion().then(() => game.getCurrentQuestion().then(setQuestion)) }>Next Question</button>
     </div>
   )
