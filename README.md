@@ -10,6 +10,7 @@ Tradeoffs Made:
 
 This was a nice project to try out:
 - async/await
+- React hooks
 - VSCode's Chrome debugger
 
 To run
