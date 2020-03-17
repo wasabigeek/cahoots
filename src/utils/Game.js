@@ -37,10 +37,11 @@ class Game {
       .all()
   }
 
-  async calculateResult(questionId) {
+  async getAnswers(questionId) {
     let answerIds = await this.game('Questions')
       .find(questionId)
       .then(record => record.get('Answers'))
+    if (answerIds === undefined) { answerIds = [] }
 
     const formula = `OR(${answerIds.map(id => `RECORD_ID()="${id}"`).join(',')})`
 
@@ -49,8 +50,6 @@ class Game {
         filterByFormula: formula
       })
       .all()
-
-      //TODO: Actually calculate
   }
 
   async startNextQuestion() {
