@@ -8,6 +8,10 @@ Tradeoffs Made:
 - **NOT SECURE** - your API key and Base ID are used to generate a URL to share with players. Since there's no backend there is no private salt to encrypt the key :/ You can regenerate the API Key and delete the base afterward, or if really concerned, setup a separate Airtable account
 - **NO PUSH** - Maybe the free tier of AWS might cover something here, but for now everything is client-initiated
 
+This was a nice project to try out:
+- async/await
+- VSCode's Chrome debugger
+
 To run
 - Setup your Airtable (TODO: add link to sample base in Airtable Universe)
 - use `npm start`
