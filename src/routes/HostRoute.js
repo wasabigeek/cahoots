@@ -6,6 +6,16 @@ import Question from '../utils/Question'
 import { TimeCounter, calculateTimeLeft } from '../utils/TimeCounter'
 
 
+const ResultBoard = ({ result }) => {
+  return (
+    <div>
+      {Object.entries(result).map(([answer, players]) => {
+        return <div>{answer}: {players.length}</div>
+      })}
+    </div>
+  )
+}
+
 const startNextQuestion = (game, setQuestion, setResult) => {
   game.startNextQuestion()
     .then(() => game.getCurrentQuestion().then(setQuestion))
@@ -43,7 +53,7 @@ const HostRoute = props => {
       {
         result ?
           <div>
-            <div>{JSON.stringify(result)}</div>
+            <ResultBoard result={result} />
             <button onClick={() => startNextQuestion(game, setQuestion, setResult) }>
               Next Question
             </button>
