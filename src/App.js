@@ -3,40 +3,13 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
 } from "react-router-dom";
 import './App.css';
 
 import HostRoute from './routes/HostRoute'
 import PlayRoute from './routes/PlayRoute'
+import HomeRoute from './routes/HomeRoute';
 
-
-const UrlGenerator = props => {
-  const [apiKey, setApiKey] = useState('');
-  const [baseId, setBaseId] = useState('');
-  const gameId = window.btoa(JSON.stringify({apiKey, baseId}))
-  return (
-    <div>
-      <div>
-        <label>
-          API Key:
-          <input value={apiKey} onChange={e => setApiKey(e.target.value)} />
-        </label>
-        <label>
-          Base ID:
-          <input value={baseId} onChange={e => setBaseId(e.target.value)} />
-        </label>
-      </div>
-      <Link to={`/games/${encodeURI(gameId)}/host`}>
-        <button>Host Game</button>
-      </Link>
-      <div>
-        Join URL:
-        {`${window.location}games/${encodeURI(gameId)}/join`}
-      </div>
-    </div>
-  )
-}
 
 function App() {
   return (
@@ -50,7 +23,7 @@ function App() {
             <PlayRoute />
           </Route>
           <Route path="/">
-            <UrlGenerator />
+            <HomeRoute />
           </Route>
         </Switch>
       </div>
