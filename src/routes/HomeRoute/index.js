@@ -24,8 +24,8 @@ const HomeRoute = props => {
         <button className={styles.btn_primary}>Host Game</button>
       </Link>
       <div>
-        Join URL:
-        {`${window.location}games/${encodeURI(gameId)}/join`}
+        Join URL:&nbsp;
+        {apiKey && baseId ? `${window.location}games/${encodeURI(gameId)}/join` : 'Enter your API Key and Base ID to generate a URL'}
       </div>
     </div>
   )
