@@ -9,10 +9,12 @@
     "@testing-library/user-event": "^7.1.2",
     "acorn": "^7.1.1",
     "airtable": "^0.8.1",
+    "bootstrap": "^4.4.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.0"
+    "react-scripts": "3.4.0",
+    "reactstrap": "^8.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
