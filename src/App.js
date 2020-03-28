@@ -14,7 +14,7 @@ import HomeRoute from './routes/HomeRoute';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/cahoots">
       <div className="App">
         <Switch>
           <Route path="/games/:gameId/host">
