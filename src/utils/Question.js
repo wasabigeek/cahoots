@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, CardBody, Row, Col } from 'reactstrap';
+import { Card, CardBody, Row, Col, CardTitle, CardText } from 'reactstrap';
 
 
 
@@ -12,7 +12,10 @@ const Question = ({ data, className }) => (
           <Col sm={12} md={6} className="mb-4">
             <Card>
               <CardBody>
-                <strong>{ans}</strong> {data.get(`Answer ${ans}`)}
+                <CardTitle><strong>{ans}</strong></CardTitle>
+                <CardText>
+                  {data.get(`Answer ${ans}`)}
+                </CardText>
               </CardBody>
             </Card>
           </Col>
