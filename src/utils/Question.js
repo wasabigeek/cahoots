@@ -1,15 +1,24 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { Card, CardBody, Row, Col } from 'reactstrap';
+
 
 
 const Question = ({ data, className }) => (
   <div className={className}>
-    <h2>{data.get('Name')}</h2>
-    <ol>
-      <li>{data.get('Answer A')}</li>
-      <li>{data.get('Answer B')}</li>
-      <li>{data.get('Answer C')}</li>
-      <li>{data.get('Answer D')}</li>
-    </ol>
+    <h2 className="mb-4">{data.get('Name')}</h2>
+    <Row>
+      {
+        ['A', 'B', 'C', 'D'].map((ans) =>
+          <Col sm={12} md={6} className="mb-4">
+            <Card>
+              <CardBody>
+                {data.get(`Answer ${ans}`)}
+              </CardBody>
+            </Card>
+          </Col>
+        )
+      }
+    </Row>
   </div>
 )
 

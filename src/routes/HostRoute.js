@@ -64,7 +64,7 @@ const HostRoute = props => {
           </div>
         : question ?
           <div>
-            <Question className="mb-4" data={question} />
+            <Question data={question} />
             <TimeCounter className="mb-4" till={new Date(question.get('Finished At'))} />
             <Button
               onClick={() => calculateResult(game, question, setResult) }
