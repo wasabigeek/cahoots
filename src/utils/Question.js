@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 
 
-const Question = ({ data }) => (
-  <div>
-    <div>{data.get('Name')}</div>
+const Question = ({ data, className }) => (
+  <div className={className}>
+    <h2>{data.get('Name')}</h2>
     <ol>
       <li>{data.get('Answer A')}</li>
       <li>{data.get('Answer B')}</li>

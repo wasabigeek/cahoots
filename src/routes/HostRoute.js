@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from "react-router-dom"
+import { Button, Container } from 'reactstrap';
 
 import Game from '../utils/Game'
 import Question from '../utils/Question'
 import { TimeCounter, calculateTimeLeft } from '../utils/TimeCounter'
 
 
-const ResultBoard = ({ result }) => {
+const ResultBoard = ({ result, className }) => {
   return (
-    <div>
+    <div className={className}>
       {Object.entries(result).map(([answer, players]) => {
         return <div>{answer}: {players.length}</div>
       })}
@@ -49,29 +50,38 @@ const HostRoute = props => {
   }, [])
 
   return (
-    <div>
+    <Container>
       {
         result ?
           <div>
-            <ResultBoard result={result} />
-            <button onClick={() => startNextQuestion(game, setQuestion, setResult) }>
+            <ResultBoard className="mb-4" result={result} />
+            <Button
+              color="primary"
+              onClick={() => startNextQuestion(game, setQuestion, setResult) }
+            >
               Next Question
-            </button>
+            </Button>
           </div>
         : question ?
           <div>
-            <Question data={question} />
-            <TimeCounter till={new Date(question.get('Finished At'))} />
-            <button onClick={() => calculateResult(game, question, setResult) }>
+            <Question className="mb-4" data={question} />
+            <TimeCounter className="mb-4" till={new Date(question.get('Finished At'))} />
+            <Button
+              onClick={() => calculateResult(game, question, setResult) }
+              color="primary"
+            >
               Show Result
-            </button>
+            </Button>
           </div>
         :
-          <button onClick={() => startNextQuestion(game, setQuestion, setResult) }>
+          <Button
+            onClick={() => startNextQuestion(game, setQuestion, setResult) }
+            color="primary"
+          >
             Start Game
-          </button>
+          </Button>
       }
-    </div>
+    </Container>
   )
 }
 

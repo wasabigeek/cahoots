@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from "react-router-dom"
-import { Button, Col, Container, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Container, Form, FormGroup, Label, Input } from 'reactstrap';
 
 import styles from './styles.module.css'
 
