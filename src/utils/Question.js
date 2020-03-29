@@ -12,7 +12,7 @@ const Question = ({ data, className }) => (
           <Col sm={12} md={6} className="mb-4">
             <Card>
               <CardBody>
-                {data.get(`Answer ${ans}`)}
+                <strong>{ans}</strong> {data.get(`Answer ${ans}`)}
               </CardBody>
             </Card>
           </Col>
