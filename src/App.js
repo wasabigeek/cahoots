@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
 } from "react-router-dom";
@@ -14,7 +14,7 @@ import HomeRoute from './routes/HomeRoute';
 
 function App() {
   return (
-    <Router basename="/cahoots">
+    <Router>
       <div className="App">
         <Switch>
           <Route path="/games/:gameId/host">

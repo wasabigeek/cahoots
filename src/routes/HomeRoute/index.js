@@ -17,7 +17,7 @@ const JoinUrl = ({ apiKey, baseId }) => {
       <Input
         disabled
         placeholder={"Enter an API Key and Base ID to generate the URL"}
-        value={apiKey && baseId ? `${window.location}games/${encodeURI(gameId)}/join` : null}
+        value={apiKey && baseId ? `${window.location}games/${encodeURI(gameId)}/play` : null}
       />
     </FormGroup>
   )
