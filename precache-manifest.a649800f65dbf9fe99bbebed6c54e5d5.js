@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "9c78d23223f50fd80b889977b25ea721",
+    "revision": "1e446e9e79ce87c8991cba8a387e9f32",
     "url": "/cahoots/index.html"
   },
   {
-    "revision": "9471e89486a887649ba8",
+    "revision": "e420ba67f70f7f2c6644",
     "url": "/cahoots/static/css/2.47e06e2e.chunk.css"
   },
   {
-    "revision": "d56049b4ecf11f77120a",
+    "revision": "779d03ffdaf450bf7067",
     "url": "/cahoots/static/css/main.73296e33.chunk.css"
   },
   {
-    "revision": "9471e89486a887649ba8",
-    "url": "/cahoots/static/js/2.dd3d8738.chunk.js"
+    "revision": "e420ba67f70f7f2c6644",
+    "url": "/cahoots/static/js/2.600775d1.chunk.js"
   },
   {
     "revision": "8183946ec95e9a09e9cfebfb08520797",
-    "url": "/cahoots/static/js/2.dd3d8738.chunk.js.LICENSE.txt"
+    "url": "/cahoots/static/js/2.600775d1.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "d56049b4ecf11f77120a",
-    "url": "/cahoots/static/js/main.06bc01a4.chunk.js"
+    "revision": "779d03ffdaf450bf7067",
+    "url": "/cahoots/static/js/main.7703a7d8.chunk.js"
   },
   {
     "revision": "3e8f9c616b6339a39a3b",
