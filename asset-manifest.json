@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/cahoots/static/css/main.73296e33.chunk.css",
-    "main.js": "/cahoots/static/js/main.7703a7d8.chunk.js",
-    "main.js.map": "/cahoots/static/js/main.7703a7d8.chunk.js.map",
+    "main.js": "/cahoots/static/js/main.79a49581.chunk.js",
+    "main.js.map": "/cahoots/static/js/main.79a49581.chunk.js.map",
     "runtime-main.js": "/cahoots/static/js/runtime-main.5480bec4.js",
     "runtime-main.js.map": "/cahoots/static/js/runtime-main.5480bec4.js.map",
     "static/css/2.47e06e2e.chunk.css": "/cahoots/static/css/2.47e06e2e.chunk.css",
-    "static/js/2.600775d1.chunk.js": "/cahoots/static/js/2.600775d1.chunk.js",
-    "static/js/2.600775d1.chunk.js.map": "/cahoots/static/js/2.600775d1.chunk.js.map",
+    "static/js/2.1c312f86.chunk.js": "/cahoots/static/js/2.1c312f86.chunk.js",
+    "static/js/2.1c312f86.chunk.js.map": "/cahoots/static/js/2.1c312f86.chunk.js.map",
     "index.html": "/cahoots/index.html",
-    "precache-manifest.a649800f65dbf9fe99bbebed6c54e5d5.js": "/cahoots/precache-manifest.a649800f65dbf9fe99bbebed6c54e5d5.js",
+    "precache-manifest.dc70312d7796a72381c70bb6c3f76f33.js": "/cahoots/precache-manifest.dc70312d7796a72381c70bb6c3f76f33.js",
     "service-worker.js": "/cahoots/service-worker.js",
     "static/css/2.47e06e2e.chunk.css.map": "/cahoots/static/css/2.47e06e2e.chunk.css.map",
     "static/css/main.73296e33.chunk.css.map": "/cahoots/static/css/main.73296e33.chunk.css.map",
-    "static/js/2.600775d1.chunk.js.LICENSE.txt": "/cahoots/static/js/2.600775d1.chunk.js.LICENSE.txt"
+    "static/js/2.1c312f86.chunk.js.LICENSE.txt": "/cahoots/static/js/2.1c312f86.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.5480bec4.js",
     "static/css/2.47e06e2e.chunk.css",
-    "static/js/2.600775d1.chunk.js",
+    "static/js/2.1c312f86.chunk.js",
     "static/css/main.73296e33.chunk.css",
-    "static/js/main.7703a7d8.chunk.js"
+    "static/js/main.79a49581.chunk.js"
   ]
 }
