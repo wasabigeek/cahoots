@@ -20,6 +20,9 @@ class Game {
 
   async addAnswer(playerId, answer) {
     const question = await this.getCurrentQuestion()
+    if (question === undefined) {
+      throw "Question has not started!"
+    }
 
     return this.game('Answers')
       .create({
