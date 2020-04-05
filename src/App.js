@@ -11,6 +11,7 @@ import HostRoute from './routes/HostRoute'
 import JoinRoute from './routes/JoinRoute'
 import PlayerRoute from './routes/PlayerRoute'
 import HomeRoute from './routes/HomeRoute';
+import QuestionResultsRoute from './routes/QuestionResultsRoute';
 
 
 function App() {
@@ -20,6 +21,9 @@ function App() {
         <Switch>
           <Route path="/games/:gameId/host">
             <HostRoute />
+          </Route>
+          <Route path="/games/:gameId/results/:questionId">
+            <QuestionResultsRoute />
           </Route>
           <Route path="/games/:gameId/players/:playerId">
             <PlayerRoute />
