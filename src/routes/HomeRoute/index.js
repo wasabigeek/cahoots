@@ -42,8 +42,8 @@ const HomeRoute = props => {
         <JoinUrl apiKey={apiKey} baseId={baseId} />
       </Form>
 
-      <Link to={`/games/${encodeURI(gameId)}/host`}>
-        <Button color="primary">Host Game</Button>
+      <Link to={`/games/${encodeURI(gameId)}/questions/current`}>
+        <Button color="primary">Start Game</Button>
       </Link>
     </Container>
   )

@@ -7,11 +7,11 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-import HostRoute from './routes/HostRoute'
 import JoinRoute from './routes/JoinRoute'
 import PlayerRoute from './routes/PlayerRoute'
 import HomeRoute from './routes/HomeRoute';
 import QuestionResultsRoute from './routes/QuestionResultsRoute';
+import CurrentQuestionRoute from './routes/CurrentQuestionRoute';
 
 
 function App() {
@@ -19,8 +19,8 @@ function App() {
     <Router>
       <div className="App">
         <Switch>
-          <Route path="/games/:gameId/host">
-            <HostRoute />
+          <Route path="/games/:gameId/questions/current">
+            <CurrentQuestionRoute />
           </Route>
           <Route path="/games/:gameId/results/:questionId">
             <QuestionResultsRoute />
