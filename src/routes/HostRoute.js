@@ -4,7 +4,7 @@ import { Button, Container } from 'reactstrap';
 
 import Game from '../utils/Game'
 import Question from '../utils/Question'
-import { TimeCounter, calculateTimeLeft } from '../utils/TimeCounter'
+import { TimeCounter } from '../utils/TimeCounter'
 
 
 const ResultBoard = ({ result, className }) => {

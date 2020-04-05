@@ -8,7 +8,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 import HostRoute from './routes/HostRoute'
-import PlayRoute from './routes/PlayRoute'
+import JoinRoute from './routes/JoinRoute'
+import PlayerRoute from './routes/PlayerRoute'
 import HomeRoute from './routes/HomeRoute';
 
 
@@ -20,8 +21,11 @@ function App() {
           <Route path="/games/:gameId/host">
             <HostRoute />
           </Route>
-          <Route path="/games/:gameId/play">
-            <PlayRoute />
+          <Route path="/games/:gameId/players/:playerId">
+            <PlayerRoute />
+          </Route>
+          <Route path="/games/:gameId/join">
+            <JoinRoute />
           </Route>
           <Route path="/">
             <HomeRoute />

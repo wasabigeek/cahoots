@@ -18,6 +18,11 @@ class Game {
       // .catch
   }
 
+  getPlayer(playerId) {
+    return this.game('Players')
+      .find(playerId)
+  }
+
   async addAnswer(playerId, answer) {
     const question = await this.getCurrentQuestion()
     if (question === undefined) {
