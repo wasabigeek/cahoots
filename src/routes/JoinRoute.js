@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useParams, Redirect } from "react-router-dom"
-import { Button, Container, Row, Col, FormGroup, Label, Input, Alert } from 'reactstrap';
+import { Button, Container, FormGroup, Label, Input } from 'reactstrap';
 
 import Game from '../utils/Game'
 

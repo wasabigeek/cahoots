@@ -26,7 +26,7 @@ class Game {
   async addAnswer(playerId, answer) {
     const question = await this.getCurrentQuestion()
     if (question === undefined) {
-      throw "Question has not started!"
+      throw new Error("Question has not started!")
     }
 
     return this.game('Answers')
@@ -76,7 +76,7 @@ class Game {
 
     // add 20 seconds
     const finishedTime = new Date(Date.now() + 20000)
-    const [err, records] = await this.game('Questions').update([
+    const [, records] = await this.game('Questions').update([
       {
         "id": nextQuestion.id,
         "fields": { "Finished At": `${finishedTime.toISOString()}` }
@@ -92,8 +92,8 @@ class Game {
     await this.getAllQuestions()
       .then(questions => {
         data = questions.find(q => {
-          let finished = q.get('Finished At') ? new Date(q.get('Finished At')) : new Date + 1
-          return finished > new Date
+          let finished = q.get('Finished At') ? new Date(q.get('Finished At')) : new Date() + 1
+          return finished > new Date()
         })
       })
 

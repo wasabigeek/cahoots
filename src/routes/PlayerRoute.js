@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from "react-router-dom"
-import { Button, Container, Row, Col, FormGroup, Label, Input, Alert } from 'reactstrap';
+import { Button, Container, Row, Col, Alert } from 'reactstrap';
 
 import Game from '../utils/Game'
 import { TimeCounter } from '../utils/TimeCounter'
