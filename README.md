@@ -1,4 +1,6 @@
 An experiment at making a free-to-play quiz game.
+![Cahoots Screenshot](cahoots_screenshot.png?raw=true "Cahoots Screenshot")
+
 
 # How to Play
 - Create an Airtable account (you could use an existing one, but note the security tradeoffs made below)
@@ -8,7 +10,7 @@ An experiment at making a free-to-play quiz game.
 - Go to https://wasabigeek.github.io/cahoots/ and enter your API Key and Base ID. Share the link with your players, click Host Game, then Start Game
 - Have fun!
 
-# Background
+# Tech Notes
 Free-to-play was achieved with:
 - **Airtable as a database** - they have a free tier
 - **No backend server** - a single-page React app which can be hosted for free thanks to GitHub pages
@@ -19,3 +21,6 @@ Tradeoffs Made:
 
 # Developing
 - `npm start`
+
+# Deploying
+- `npm run deploy`
