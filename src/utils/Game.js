@@ -23,6 +23,12 @@ class Game {
       .find(playerId)
   }
 
+  getPlayers() {
+    return this.game('Players')
+      .select()
+      .all()
+  }
+
   async addAnswer(playerId, answer) {
     const question = await this.getCurrentQuestion()
     if (question === undefined) {

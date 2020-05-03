@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, Link } from "react-router-dom"
-import { Button, Container } from 'reactstrap';
+import { Button, Container, Card, CardBody, Row, Col, CardTitle, CardText } from 'reactstrap';
 
 import Game from '../utils/Game'
 
@@ -8,25 +8,42 @@ import Game from '../utils/Game'
 const ResultBoard = ({ result, className }) => {
   return (
     <div className={className}>
-      {Object.entries(result).map(([answer, players]) => {
-        return <div>{answer}: {players.length}</div>
-      })}
+      <Row>
+        {
+          Object.entries(result).map(([answer, players]) => (
+            <Col sm={12} md={6} className="mb-4">
+              <Card>
+                <CardBody>
+                  <CardTitle><strong>{answer}</strong></CardTitle>
+                  <CardText>
+                    {players.join(', ')}
+                  </CardText>
+                </CardBody>
+              </Card>
+            </Col>
+          ))
+        }
+      </Row>
     </div>
   )
 }
 
 async function calculateResult(game, questionId) {
   let answers = await game.getAnswers(questionId)
-  // group by answers
-  return answers.reduce((acc, answer) => {
-    let value = answer.get('Answer')
-    if (acc[value] == null) {
-      acc[value] = []
-    }
-    acc[value] = acc[value].concat(answer.get('Player'))
+  let players = await game.getPlayers()
 
-    return acc
-  }, {})
+  // group by answers
+  let results = { 'A': [], 'B': [], 'C': [], 'D': []}
+  answers.forEach(answer => {
+    let value = answer.get('Answer')
+
+    const playerId = answer.get('Player')[0]
+    const player = players.find(player => playerId === player.getId())
+
+    results[value] = results[value].concat(player.get('Name'))
+  })
+
+  return results
 }
 
 const QuestionResultsRoute = props => {
