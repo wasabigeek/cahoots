@@ -45,6 +45,11 @@ class Game {
       // .catch
   }
 
+  getQuestion(questionId) {
+    return this.game('Questions')
+      .find(questionId)
+  }
+
   getAllQuestions() {
     return this.game('Questions')
       .select({ sort: [{field: "Order", direction: "asc"}] })

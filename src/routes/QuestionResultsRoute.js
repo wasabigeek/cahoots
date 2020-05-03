@@ -5,16 +5,23 @@ import { Button, Container, Card, CardBody, Row, Col, CardTitle, CardText } from
 import Game from '../utils/Game'
 
 
-const ResultBoard = ({ result, className }) => {
+const ResultBoard = ({ result, className, question }) => {
   return (
     <div className={className}>
+      <h2 className="mb-4">{question ? question.get('Name') : null}</h2>
       <Row>
         {
           Object.entries(result).map(([answer, players]) => (
             <Col sm={12} md={6} className="mb-4">
-              <Card>
+              <Card
+                color={question.get('Correct Answer') == answer ? 'success' : null}
+                inverse={question.get('Correct Answer') == answer ? true : null}
+              >
                 <CardBody>
-                  <CardTitle><strong>{answer}</strong></CardTitle>
+                  <CardTitle>
+                    <strong className='mr-2'>{answer}</strong>
+                    {question.get('Correct Answer') == answer ? '✔️' : '❌'}
+                  </CardTitle>
                   <CardText>
                     {players.join(', ')}
                   </CardText>
@@ -49,15 +56,17 @@ async function calculateResult(game, questionId) {
 const QuestionResultsRoute = props => {
   let { gameId, questionId } = useParams()
   let [result, setResult] = useState({})
+  let [question, setQuestion] = useState(null)
   const game = new Game({ gameId })
 
   useEffect(() => {
+    game.getQuestion(questionId).then(setQuestion)
     calculateResult(game, questionId).then(setResult)
   }, [])
 
   return (
     <Container>
-      <ResultBoard className="mb-4" result={result} />
+      <ResultBoard className="mb-4" result={result} question={question} />
       <Link to={`/games/${encodeURI(gameId)}/questions/current`}>
         <Button color="primary">
           Next Question
