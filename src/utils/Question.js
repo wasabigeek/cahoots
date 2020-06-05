@@ -3,9 +3,9 @@ import { Card, CardBody, Row, Col, CardTitle, CardText } from 'reactstrap';
 
 
 
-const Question = ({ data, className }) => (
+const Question = ({ question, className }) => (
   <div className={className}>
-    <h2 className="mb-4">{data.get('Name')}</h2>
+    <h2 className="mb-4">{question.text}</h2>
     <Row>
       {
         ['A', 'B', 'C', 'D'].map((ans) =>
@@ -14,7 +14,7 @@ const Question = ({ data, className }) => (
               <CardBody>
                 <CardTitle><strong>{ans}</strong></CardTitle>
                 <CardText>
-                  {data.get(`Answer ${ans}`)}
+                  {question[`answer${ans}`]}
                 </CardText>
               </CardBody>
             </Card>

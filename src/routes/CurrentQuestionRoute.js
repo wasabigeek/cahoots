@@ -20,9 +20,9 @@ const CurrentQuestionRoute = props => {
     <Container>
       {question ?
           <div>
-            <Question data={question} />
-            <TimeCounter className="mb-4" till={new Date(question.get('Finished At'))} />
-            <Link to={`/games/${encodeURI(gameId)}/results/${question.getId()}`}>
+            <Question question={question} />
+            <TimeCounter className="mb-4" till={new Date(question.finishedAt)} />
+            <Link to={`/games/${encodeURI(gameId)}/results/${question.id}`}>
               <Button color="primary">Show Result</Button>
             </Link>
           </div>

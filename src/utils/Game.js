@@ -1,4 +1,5 @@
 import Airtable from 'airtable';
+import Question from '../entities/question';
 
 class Game {
   constructor({ gameId }) {
@@ -108,7 +109,16 @@ class Game {
         })
       })
 
-    return data
+    return new Question({
+      id: data.getId(),
+      text: data.get('Name'),
+      answerA: data.get('Answer A'),
+      answerB: data.get('Answer B'),
+      answerC: data.get('Answer C'),
+      answerD: data.get('Answer D'),
+      correctAnswer: data.get('Correct Answer'),
+      finishedAt: data.get('Finished At'),
+    })
   }
 }
 
