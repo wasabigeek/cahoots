@@ -58,7 +58,7 @@ const PlayerRoute = props => {
         </Col>
       </Row>
       <AnswerGrid recordAnswer={recordAnswer}/>
-      {question ? <TimeCounter till={new Date(question.get('Finished At'))} /> : null }
+      {question ? <TimeCounter till={new Date(question.finishedAt)} /> : null }
       {errorMessage ? <Alert color="danger">{errorMessage}</Alert> : null}
     </Container>
   )

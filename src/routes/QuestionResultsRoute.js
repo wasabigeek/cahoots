@@ -8,19 +8,19 @@ import Game from '../utils/Game'
 const ResultBoard = ({ result, className, question }) => {
   return (
     <div className={className}>
-      <h2 className="mb-4">{question ? question.get('Name') : null}</h2>
+      <h2 className="mb-4">{question ? question.text : null}</h2>
       <Row>
         {
           Object.entries(result).map(([answer, players]) => (
             <Col sm={12} md={6} className="mb-4">
               <Card
-                color={question.get('Correct Answer') == answer ? 'success' : null}
-                inverse={question.get('Correct Answer') == answer ? true : null}
+                color={question.correctAnswer == answer ? 'success' : null}
+                inverse={question.correctAnswer == answer ? true : null}
               >
                 <CardBody>
                   <CardTitle>
                     <strong className='mr-2'>{answer}</strong>
-                    {question.get('Correct Answer') == answer ? '✔️' : '❌'}
+                    {question.correctAnswer == answer ? '✔️' : '❌'}
                   </CardTitle>
                   <CardText>
                     {players.join(', ')}

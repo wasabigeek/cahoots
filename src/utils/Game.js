@@ -7,7 +7,7 @@ class Game {
     Airtable.configure({endpointUrl: 'https://api.airtable.com', apiKey})
     this.game = Airtable.base(baseId)
 
-    this.getAllQuestions = this.getAllQuestions.bind(this)
+    this._getAllQuestions = this._getAllQuestions.bind(this)
     this.startNextQuestion = this.startNextQuestion.bind(this)
     this.getCurrentQuestion = this.getCurrentQuestion.bind(this)
   }
@@ -40,7 +40,7 @@ class Game {
       .create({
         "Answer": answer,
         "Player": [ playerId ],
-        "Question": [ question.getId() ]
+        "Question": [ question.id ]
       })
       .then(record => { return { answer: record, question: question }})
       // .catch
@@ -49,9 +49,10 @@ class Game {
   getQuestion(questionId) {
     return this.game('Questions')
       .find(questionId)
+      .then(data => convertAirtableQuestion(data));
   }
 
-  getAllQuestions() {
+  _getAllQuestions() {
     return this.game('Questions')
       .select({ sort: [{field: "Order", direction: "asc"}] })
       .all()
@@ -101,7 +102,7 @@ class Game {
   async getCurrentQuestion() {
     let data = null
     // filters seem to take longer to update, so we do it ourselves
-    await this.getAllQuestions()
+    await this._getAllQuestions()
       .then(questions => {
         data = questions.find(q => {
           let finished = q.get('Finished At') ? new Date(q.get('Finished At')) : new Date() + 1
@@ -109,17 +110,23 @@ class Game {
         })
       })
 
-    return new Question({
-      id: data.getId(),
-      text: data.get('Name'),
-      answerA: data.get('Answer A'),
-      answerB: data.get('Answer B'),
-      answerC: data.get('Answer C'),
-      answerD: data.get('Answer D'),
-      correctAnswer: data.get('Correct Answer'),
-      finishedAt: data.get('Finished At'),
-    })
+    return convertAirtableQuestion(data);
   }
 }
+
+// convert Airtable object to internal Question object
+const convertAirtableQuestion = data => {
+  return data ? new Question({
+    id: data.getId(),
+    text: data.get('Name'),
+    answerA: data.get('Answer A'),
+    answerB: data.get('Answer B'),
+    answerC: data.get('Answer C'),
+    answerD: data.get('Answer D'),
+    correctAnswer: data.get('Correct Answer'),
+    finishedAt: data.get('Finished At'),
+  }) : null ;
+}
+
 
 export default Game
