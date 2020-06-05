@@ -42,6 +42,7 @@ class Game {
         "Player": [ playerId ],
         "Question": [ question.id ]
       })
+      // answer is not used now, but if we do use it we should convert it to an entity
       .then(record => { return { answer: record, question: question }})
       // .catch
   }
@@ -89,14 +90,12 @@ class Game {
 
     // add 20 seconds
     const finishedTime = new Date(Date.now() + 20000)
-    const [, records] = await this.game('Questions').update([
+    await this.game('Questions').update([
       {
         "id": nextQuestion.id,
         "fields": { "Finished At": `${finishedTime.toISOString()}` }
       }
     ])
-
-    return records
   }
 
   async getCurrentQuestion() {
