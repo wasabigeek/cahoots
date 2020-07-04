@@ -13,9 +13,11 @@ const PendingQuestionRoute = ({ parentUrl }) => {
   const [ nextQuestion, setNextQuestion ] = useState(null);
 
   useEffect(() => {
-    startTimer({ seconds: SECONDS_TO_QUESTION, intervalCallback: setTimeLeft, endedCallback: setTimeLeft });
-    startNextQuestion(gameId).then(setNextQuestion);
-  }, [])
+    if (gameId) {
+      startTimer({ seconds: SECONDS_TO_QUESTION, intervalCallback: setTimeLeft, endedCallback: setTimeLeft });
+      startNextQuestion(gameId).then(setNextQuestion);
+    }
+  }, [gameId])
 
   return (
     <CenteredContainer verticalCentered={true}>

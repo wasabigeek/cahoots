@@ -1,4 +1,3 @@
-import GameStore from '../store/GameStore';
 import AnswerStore from '../store/AnswerStore';
 
 

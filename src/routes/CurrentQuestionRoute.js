@@ -24,9 +24,11 @@ const CurrentQuestionRoute = ({ parentUrl }) => {
   const [timeLeft, setTimeLeft] = useState(SECONDS_TO_QUESTION);
 
   useEffect(() => {
-    startTimer({ seconds: SECONDS_TO_QUESTION, intervalCallback: setTimeLeft, endedCallback: setTimeLeft });
-    showCurrentQuestion(gameId).then(setQuestion);
-  }, [])
+    if (gameId) {
+      startTimer({ seconds: SECONDS_TO_QUESTION, intervalCallback: setTimeLeft, endedCallback: setTimeLeft });
+      showCurrentQuestion(gameId).then(setQuestion);
+    }
+  }, [gameId])
 
   return (
     <CenteredContainer verticalCentered={true}>

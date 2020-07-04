@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { InputGroup, InputGroupAddon, InputGroupText, Input, Card, CardTitle, CardText, Button, Alert, Spinner, CardBody, FormGroup, Label } from 'reactstrap';
+import { InputGroup, InputGroupAddon, InputGroupText, Input, Card, CardTitle, Button, Spinner, FormGroup, Label } from 'reactstrap';
 import saveQuestion from '../use_cases/saveQuestion';
 
 const STATE_DEFAULT = 'default';
@@ -55,7 +55,7 @@ export const EditableQuestion = ({ question }) => {
             <option>D</option>
           </Input>
         </FormGroup>
-        {componentState == STATE_SAVING ?
+        {componentState === STATE_SAVING ?
           <Button disabled color="primary" className="mt-4">
             <Spinner type="grow" size="sm" color="info" className="mr-2" />
             Saving...

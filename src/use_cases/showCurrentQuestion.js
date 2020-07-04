@@ -1,7 +1,7 @@
 import GameStore from '../store/GameStore';
 import QuestionStore from '../store/QuestionStore';
 
-const showCurrentQuestion = (gameId, gameStore = new GameStore(), questionStore = new QuestionStore) => {
+const showCurrentQuestion = (gameId, gameStore = new GameStore(), questionStore = new QuestionStore()) => {
   gameStore.update(gameId, { state: 'showingQuestion' });
   return gameStore
     .get(gameId)

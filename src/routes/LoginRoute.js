@@ -67,7 +67,7 @@ const LoginRoute = props => {
         <LoginForm onUserChange={setUser} />
         <div>
           No account?&nbsp;
-          <a href="" onClick={toggleForm}>Sign Up!</a>
+          <Button link onClick={toggleForm}>Sign Up!</Button>
         </div>
       </CenteredContainer>
     );
@@ -78,7 +78,7 @@ const LoginRoute = props => {
         <SignupForm onUserChange={setUser} />
         <div>
           Have an account?&nbsp;
-          <a href="" onClick={toggleForm}>Login</a>
+          <Button link onClick={toggleForm}>Login</Button>
         </div>
       </CenteredContainer>
     );

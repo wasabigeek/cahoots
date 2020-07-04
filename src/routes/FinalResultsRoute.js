@@ -7,8 +7,8 @@ import CenteredContainer from '../view_components/CenteredContainer';
 
 // Compares two Arrays of playerName, score in terms of ascending score.
 const sortScores = (a, b) => {
-  const [playerName1, score1] = a;
-  const [playerName2, score2] = b;
+  const [, score1] = a;
+  const [, score2] = b;
 
   if (score1 > score2) {
     return -1;
@@ -45,8 +45,10 @@ const FinalResultsRoute = props => {
   let [results, setResults] = useState({})
 
   useEffect(() => {
-    calculateFinalResults(gameId).then(setResults);
-  }, [])
+    if (gameId) {
+      calculateFinalResults(gameId).then(setResults);
+    }
+  }, [gameId])
 
   return (
     <CenteredContainer verticalCentered={true} maxWidth={500}>

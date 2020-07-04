@@ -26,7 +26,7 @@ const AnswerGrid = ({ recordAnswer }) => {
   )
 }
 
-const PlayerRoute = props => {
+const PlayerRoute = () => {
   let { gameId, playerId } = useParams()
   const [currentGame, setCurrentGame] = useState();
   const [playerName, setPlayerName] = useState('')
@@ -42,10 +42,12 @@ const PlayerRoute = props => {
   }
 
   useEffect(() => {
-    getGame(gameId, handleGameChange);
-    getPlayer(playerId, { gameId })
-      .then(player => setPlayerName(player.name))
-  }, [])
+    if (gameId && playerId) {
+      getGame(gameId, handleGameChange);
+      getPlayer(playerId, { gameId })
+        .then(player => setPlayerName(player.name))
+    }
+  }, [gameId, playerId])
 
   const recordAnswer = ans => {
     // playerName is for convenience later, though it feels a little like this knows more about the store than it should
