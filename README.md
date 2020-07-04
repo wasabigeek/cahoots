@@ -7,6 +7,7 @@ An experiment at making a free-to-play quiz game.
 - Start the game, and share the join URL with friends
 
 # Developing
+- copy `.env.example` and add your firebase project config
 - `npm start`
 
 # Deploying
