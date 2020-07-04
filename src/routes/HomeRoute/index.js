@@ -1,51 +1,30 @@
 import React, { useState } from 'react'
 import { Link } from "react-router-dom"
-import { Button, Container, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
+import CenteredContainer from '../../view_components/CenteredContainer';
 import styles from './styles.module.css'
 
 
-const generateGameId = (apiKey, baseId) => {
-  return window.btoa(JSON.stringify({apiKey, baseId}))
-}
-
-const JoinUrl = ({ apiKey, baseId }) => {
-  const gameId = generateGameId(apiKey, baseId)
-  return (
-    <FormGroup>
-      <Label>Join URL:</Label>
-      <Input
-        disabled
-        placeholder={"Enter an API Key and Base ID to generate the URL"}
-        value={apiKey && baseId ? `${window.location}games/${encodeURI(gameId)}/join` : null}
-      />
-    </FormGroup>
-  )
-}
-
 const HomeRoute = props => {
-  const [apiKey, setApiKey] = useState('');
-  const [baseId, setBaseId] = useState('');
-  const gameId = generateGameId(apiKey, baseId)
+  const [gameId, setGameId] = useState(null);
+
   return (
-    <Container style={{maxWidth: "500px"}}>
+    <CenteredContainer maxWidth={500} verticalCentered={true}>
       <h1 className={styles.hero_heading}>Cahoots!</h1>
       <Form className="mb-5">
         <FormGroup>
-          <Label for="apiKey">API Key:</Label>
-          <Input id="apiKey" value={apiKey} onChange={e => setApiKey(e.target.value)} />
+          <Label for="gameId">Game ID:</Label>
+          <Input id="gameId" value={gameId} onChange={e => setGameId(e.target.value)} />
         </FormGroup>
-        <FormGroup>
-          <Label>Base ID:</Label>
-          <Input value={baseId} onChange={e => setBaseId(e.target.value)} />
-        </FormGroup>
-        <JoinUrl apiKey={apiKey} baseId={baseId} />
+        <Link to={`/join/${gameId}`}>
+          <Button color="primary" disabled={!gameId}>Find Game</Button>
+        </Link>
       </Form>
-
-      <Link to={`/games/${encodeURI(gameId)}/questions/current`}>
-        <Button color="primary">Start Game</Button>
+      <Link to="/login">
+        Sign Up
       </Link>
-    </Container>
+    </CenteredContainer>
   )
 }
 

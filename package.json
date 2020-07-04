@@ -4,12 +4,9 @@
   "private": true,
   "homepage": "http://wasabigeek.github.io/cahoots",
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
     "acorn": "^7.1.1",
-    "airtable": "^0.8.1",
     "bootstrap": "^4.4.1",
+    "firebase": "^7.15.3",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-router-dom": "^5.1.2",
@@ -40,6 +37,8 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.0",
+    "@testing-library/react": "^10.4.3",
     "gh-pages": "^2.2.0"
   }
 }

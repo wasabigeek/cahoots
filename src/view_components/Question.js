@@ -9,7 +9,7 @@ const Question = ({ question, className }) => (
     <Row>
       {
         ['A', 'B', 'C', 'D'].map((ans) =>
-          <Col sm={12} md={6} className="mb-4">
+          <Col key={ans} sm={12} md={6} className="mb-4">
             <Card>
               <CardBody>
                 <CardTitle><strong>{ans}</strong></CardTitle>

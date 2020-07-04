@@ -1,39 +1,51 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, Link } from "react-router-dom"
-import { Button, Container } from 'reactstrap';
+import { Button } from 'reactstrap';
 
-import Game from '../utils/Game'
-import Question from '../utils/Question'
-import { TimeCounter } from '../utils/TimeCounter'
+import showCurrentQuestion from '../use_cases/showCurrentQuestion'
+import Question from '../view_components/Question'
+import { startTimer } from '../utils/calculateTimeLeft';
+import CenteredContainer from '../view_components/CenteredContainer';
 
-const CurrentQuestionRoute = props => {
-  let { gameId } = useParams()
-  const [question, setQuestion] = useState(null)
-  const game = new Game({ gameId })
+const SECONDS_TO_QUESTION = 10;
+
+const ShowResultsBtn = ({ isVisible, linkTo }) => {
+  return isVisible ?
+    (
+      <Link to={linkTo}>
+        <Button color="primary">Show Result</Button>
+      </Link>
+    ) : null
+}
+
+const CurrentQuestionRoute = ({ parentUrl }) => {
+  let { gameId } = useParams();
+  const [question, setQuestion] = useState(null);
+  const [timeLeft, setTimeLeft] = useState(SECONDS_TO_QUESTION);
 
   useEffect(() => {
-    game.startNextQuestion()
-    .then(() => game.getCurrentQuestion().then(setQuestion))
+    startTimer({ seconds: SECONDS_TO_QUESTION, intervalCallback: setTimeLeft, endedCallback: setTimeLeft });
+    showCurrentQuestion(gameId).then(setQuestion);
   }, [])
 
   return (
-    <Container>
+    <CenteredContainer verticalCentered={true}>
       {question ?
           <div>
             <Question question={question} />
-            <TimeCounter className="mb-4" till={new Date(question.finishedAt)} />
-            <Link to={`/games/${encodeURI(gameId)}/results/${question.id}`}>
-              <Button color="primary">Show Result</Button>
-            </Link>
+            <div className="mt-4">Time left:</div>
+            <div className="display-1">
+              {Math.ceil(timeLeft)}
+            </div>
+            <ShowResultsBtn
+              isVisible={timeLeft <= 0}
+              linkTo={`${parentUrl}/results/${question.id}`}
+            />
           </div>
         : <div>Loading...</div>
       }
-    </Container>
+    </CenteredContainer>
   )
 }
 
 export default CurrentQuestionRoute
-
-// no result, no question, start button
-// no result, question, no buttons if time out, else show button if within time
-// have result, show result, hide question, next button (clears result)

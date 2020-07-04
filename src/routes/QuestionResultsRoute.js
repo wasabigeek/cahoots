@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, Link } from "react-router-dom"
-import { Button, Container, Card, CardBody, Row, Col, CardTitle, CardText } from 'reactstrap';
+import { Button, Card, CardBody, Row, Col, CardTitle, CardText } from 'reactstrap';
 
-import Game from '../utils/Game'
+import getQuestion from '../use_cases/getQuestion';
+import calculateQuestionResults from '../use_cases/calculateQuestionResults';
+import countTotalQuestions from '../use_cases/countTotalQuestions';
+import CenteredContainer from '../view_components/CenteredContainer';
 
+
+const isCorrectChoice = (question, choice) => {
+  return question.correctAnswer === choice;
+}
 
 const ResultBoard = ({ result, className, question }) => {
   return (
@@ -14,13 +21,13 @@ const ResultBoard = ({ result, className, question }) => {
           Object.entries(result).map(([answer, players]) => (
             <Col sm={12} md={6} className="mb-4">
               <Card
-                color={question.correctAnswer == answer ? 'success' : null}
-                inverse={question.correctAnswer == answer ? true : null}
+                color={isCorrectChoice(question, answer) ? 'success' : null}
+                inverse={isCorrectChoice(question, answer) ? true : null}
               >
                 <CardBody>
                   <CardTitle>
                     <strong className='mr-2'>{answer}</strong>
-                    {question.correctAnswer == answer ? '✔️' : '❌'}
+                    {isCorrectChoice(question, answer) ? '✔️' : '❌'}
                   </CardTitle>
                   <CardText>
                     {players.join(', ')}
@@ -35,44 +42,37 @@ const ResultBoard = ({ result, className, question }) => {
   )
 }
 
-async function calculateResult(game, questionId) {
-  let answers = await game.getAnswers(questionId)
-  let players = await game.getPlayers()
-
-  // group by answers
-  let results = { 'A': [], 'B': [], 'C': [], 'D': []}
-  answers.forEach(answer => {
-    let value = answer.get('Answer')
-
-    const playerId = answer.get('Player')[0]
-    const player = players.find(player => playerId === player.getId())
-
-    results[value] = results[value].concat(player.get('Name'))
-  })
-
-  return results
-}
-
-const QuestionResultsRoute = props => {
+const QuestionResultsRoute = ({ parentUrl }) => {
   let { gameId, questionId } = useParams()
   let [result, setResult] = useState({})
   let [question, setQuestion] = useState(null)
-  const game = new Game({ gameId })
+  let [totalQuestionCount, setTotalQuestionCount] = useState(null)
 
   useEffect(() => {
-    game.getQuestion(questionId).then(setQuestion)
-    calculateResult(game, questionId).then(setResult)
-  }, [])
+    if (gameId && questionId) {
+      getQuestion(questionId, { gameId }).then(setQuestion);
+      countTotalQuestions(gameId).then(setTotalQuestionCount);
+      calculateQuestionResults(gameId, questionId).then(setResult);
+    }
+  }, [gameId, questionId])
 
   return (
-    <Container>
+    <CenteredContainer verticalCentered={true}>
       <ResultBoard className="mb-4" result={result} question={question} />
-      <Link to={`/games/${encodeURI(gameId)}/questions/current`}>
-        <Button color="primary">
-          Next Question
-        </Button>
-      </Link>
-    </Container>
+      {question && question.order >= totalQuestionCount ?
+        <Link to={`${parentUrl}/results/final`}>
+          <Button color="primary">
+            Show Final Results
+          </Button>
+        </Link>
+        :
+        <Link to={`${parentUrl}/questions/pending`}>
+          <Button color="primary">
+            Next Question
+          </Button>
+        </Link>
+      }
+    </CenteredContainer>
   )
 }
 

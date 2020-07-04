@@ -10,8 +10,13 @@ import './App.css';
 import JoinRoute from './routes/JoinRoute'
 import PlayerRoute from './routes/PlayerRoute'
 import HomeRoute from './routes/HomeRoute';
-import QuestionResultsRoute from './routes/QuestionResultsRoute';
-import CurrentQuestionRoute from './routes/CurrentQuestionRoute';
+import LobbyRoute from './routes/LobbyRoute';
+import LoginRoute from './routes/LoginRoute';
+import MyGamesRoute from './routes/MyGamesRoute';
+import CreateGameRoute from './routes/CreateGameRoute';
+import HostRoute from './routes/HostRoute';
+import GameDetailsRoute from './routes/GameDetailsRoute';
+import FindGameRoute from './routes/FindGameRoute';
 
 
 function App() {
@@ -19,17 +24,32 @@ function App() {
     <Router>
       <div className="App">
         <Switch>
-          <Route path="/games/:gameId/questions/current">
-            <CurrentQuestionRoute />
+          <Route path="/login">
+            <LoginRoute />
           </Route>
-          <Route path="/games/:gameId/results/:questionId">
-            <QuestionResultsRoute />
+          <Route path="/host/:gameId">
+            <HostRoute />
           </Route>
-          <Route path="/games/:gameId/players/:playerId">
+          <Route path="/lobby/:gameId">
+            <LobbyRoute />
+          </Route>
+          <Route path="/play/:gameId/as/:playerId">
             <PlayerRoute />
           </Route>
-          <Route path="/games/:gameId/join">
+          <Route path="/join/:gameId">
             <JoinRoute />
+          </Route>
+          <Route path="/join">
+            <FindGameRoute />
+          </Route>
+          <Route path="/games/create">
+            <CreateGameRoute />
+          </Route>
+          <Route path="/games/:gameId">
+            <GameDetailsRoute />
+          </Route>
+          <Route exact path="/games">
+            <MyGamesRoute />
           </Route>
           <Route path="/">
             <HomeRoute />
