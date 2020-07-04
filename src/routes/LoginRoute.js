@@ -66,8 +66,8 @@ const LoginRoute = props => {
         <h1>Login to Cahoots!</h1>
         <LoginForm onUserChange={setUser} />
         <div>
-          No account?&nbsp;
-          <Button link onClick={toggleForm}>Sign Up!</Button>
+          No account? <br />
+          <Button color="link" onClick={toggleForm}>Sign Up!</Button>
         </div>
       </CenteredContainer>
     );
@@ -77,8 +77,8 @@ const LoginRoute = props => {
         <h1>Signup for Cahoots!</h1>
         <SignupForm onUserChange={setUser} />
         <div>
-          Have an account?&nbsp;
-          <Button link onClick={toggleForm}>Login</Button>
+          Have an account? <br />
+          <Button color="link" onClick={toggleForm}>Login</Button>
         </div>
       </CenteredContainer>
     );
