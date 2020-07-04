@@ -9,7 +9,10 @@ import getGame from '../use_cases/getGame';
 
 const JoinForm = ({ playerName, setPlayerName, joinGame }) => {
   return (
-    <Form onSubmit={joinGame}>
+    <Form onSubmit={e => {
+      e.preventDefault();
+      joinGame();
+    }}>
       <FormGroup>
         <Label>Your Nickname:</Label>
         <Input
