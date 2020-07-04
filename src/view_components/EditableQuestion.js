@@ -46,7 +46,7 @@ export const EditableQuestion = ({ question }) => {
             name="correctAnswer"
             id="correctAnswerDropdown"
             data-testid="correctAnswerDropdown"
-            value={draftQuestion.correctAnswer || ''}
+            value={draftQuestion.correctAnswer || 'A'}
             onChange={e => updateDraft({ correctAnswer: e.target.value })}
           >
             <option>A</option>
