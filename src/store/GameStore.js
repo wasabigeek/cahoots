@@ -39,6 +39,14 @@ class GameStore extends BaseStore {
       chain = chain.where("ownerId", "==", scopes.ownerId);
     }
 
+    if ('state' in scopes) {
+      chain = chain.where("state", "==", scopes.state);
+    }
+
+    if ('shortCode' in scopes) {
+      chain = chain.where("shortCode", "==", scopes.shortCode);
+    }
+
     if ('limit' in scopes) {
       chain = chain.limit(scopes.limit);
     }
