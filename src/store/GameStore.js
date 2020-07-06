@@ -4,11 +4,9 @@ import Game from '../entities/Game';
 
 class GameStore extends BaseStore {
   create(attributes = {}) {
-    const { name, ownerId } = attributes;
-
     return this.firestore
       .collection('games')
-      .add({ name, ownerId, state: Game.STATE_DRAFT})
+      .add(Object.assign({ state: Game.STATE_DRAFT }, attributes))
       .then(ref => ref.get())
       .then(this._convertDocToGame)
   }
