@@ -37,6 +37,7 @@
     ]
   },
   "devDependencies": {
+    "@firebase/testing": "^0.20.5",
     "@testing-library/jest-dom": "^5.11.0",
     "@testing-library/react": "^10.4.3",
     "gh-pages": "^2.2.0"
