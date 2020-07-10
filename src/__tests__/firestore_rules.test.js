@@ -10,6 +10,11 @@ const otherAuth = { uid: otherUid, email: "other_user@example.org" }
 const initAdminDb = () => firebase.initializeAdminApp({ projectId: PROJECT_ID }).firestore();
 const initDb = ({ auth }) => firebase.initializeTestApp({ projectId: PROJECT_ID, auth }).firestore();
 
+
+beforeEach(async() => {
+  await firebase.clearFirestoreData({ projectId: PROJECT_ID });
+});
+
 describe("games collection", () => {
   it("allows get always", async() => {
     const db = firebase.initializeTestApp({ projectId: PROJECT_ID }).firestore();
