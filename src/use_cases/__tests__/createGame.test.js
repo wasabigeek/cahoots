@@ -15,6 +15,6 @@ describe('createGame', () => {
 
     const attributes = { title: 'test' };
     createGame(attributes, gameStore);
-    expect(createFn).toHaveBeenCalledWith(Object.assign({ shortCode: 3101 }, attributes));
+    expect(createFn).toHaveBeenCalledWith(Object.assign({ shortCode: "3101" }, attributes));
    })
 });
