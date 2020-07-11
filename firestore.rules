@@ -6,14 +6,11 @@ service cloud.firestore {
         return request.auth != null && request.auth.uid == resource.data.ownerId;
       }
 
-      function isOwnerOrGlobalSearch(requestData, resourceData, requestAuth) {
-        let isOwner = requestAuth != null && requestAuth.uid == resourceData.ownerId;
-        // let isGlobalSearch = requestData.state == "waitingForPlayers" && requestData.shortCode != null;
-        let isGlobalSearch = false;
-        return isOwner(requestAuth, resourceData);
+      function isShortCodeSearch(resource) {
+        return resource.data.state == "waitingForPlayers" && resource.data.shortCode != null
       }
 
-      allow list: if isOwner(request, resource);
+      allow list: if isOwner(request, resource) || isShortCodeSearch(resource);
       allow write: if isOwner(request, resource);
       allow get: if true;
 

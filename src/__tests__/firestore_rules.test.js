@@ -1,4 +1,5 @@
 const firebase = require("@firebase/testing");
+const { default: Game } = require("../entities/Game");
 
 const PROJECT_ID = JSON.parse(process.env.REACT_APP_FIREBASE_CONFIG).projectId;
 
@@ -56,6 +57,14 @@ describe("list games", () => {
   it("allows listing of owned games", async() => {
     const db = initDb({ auth: myAuth });
     const query = db.collection("games").where("ownerId", "==", myUid);
+    await firebase.assertSucceeds(query.get());
+  });
+
+  it("allows search of games by shortCode", async() => {
+    const db = initDb();
+    const query = db.collection("games")
+      .where("shortCode", "==", 123)
+      .where("state", "==", Game.STATE_WAITING_FOR_PLAYERS);
     await firebase.assertSucceeds(query.get());
   });
 });
