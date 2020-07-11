@@ -38,7 +38,13 @@ const HomeRoute = () => {
     return (
       <CenteredContainer maxWidth={500} verticalCentered={true}>
         <h1 className={styles.hero_heading}>Cahoots!</h1>
-        <Form className="mb-5">
+        <Form
+          className="mb-5"
+          onSubmit={(e) => {
+            e.preventDefault();
+            findGamesByShortCode(shortCode).then(setGames);
+          }}
+        >
           <FormGroup>
             <Label for="shortCode">Game Code:</Label>
             <Input id="shortCode" type="number" value={shortCode} onChange={e => setShortCode(e.target.value)} />
@@ -46,7 +52,7 @@ const HomeRoute = () => {
           <Button
             color="primary"
             disabled={!shortCode}
-            onClick={() => findGamesByShortCode(shortCode).then(setGames)}
+            type="submit"
           >
             Find Game
           </Button>
