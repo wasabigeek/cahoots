@@ -2,19 +2,19 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /games/{gameId} {
-      function isOwner(requestAuth, resourceData) {
-        return requestAuth != null && requestAuth.uid == resourceData.ownerId;
+      function isOwner(request, resource) {
+        return request.auth != null && request.auth.uid == resource.data.ownerId;
       }
 
       function isOwnerOrGlobalSearch(requestData, resourceData, requestAuth) {
         let isOwner = requestAuth != null && requestAuth.uid == resourceData.ownerId;
         // let isGlobalSearch = requestData.state == "waitingForPlayers" && requestData.shortCode != null;
         let isGlobalSearch = false;
-        return isGlobalSearch || isOwner;
+        return isOwner(requestAuth, resourceData);
       }
 
-      allow list: if isOwnerOrGlobalSearch(request.resource.data, resource.data, request.auth);
-      allow write: if isOwner(request.auth, resource.data);
+      allow list: if isOwner(request, resource);
+      allow write: if isOwner(request, resource);
       allow get: if true;
 
       match /players/{playerId} {

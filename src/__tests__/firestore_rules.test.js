@@ -8,26 +8,31 @@ const otherUid = "5678"
 const otherAuth = { uid: otherUid, email: "other_user@example.org" }
 
 const initAdminDb = () => firebase.initializeAdminApp({ projectId: PROJECT_ID }).firestore();
-const initDb = ({ auth }) => firebase.initializeTestApp({ projectId: PROJECT_ID, auth }).firestore();
+const initDb = (options = {}) => {
+  const { auth } = options;
+  return firebase.initializeTestApp({ projectId: PROJECT_ID, auth }).firestore();
+}
 
 
 beforeEach(async() => {
   await firebase.clearFirestoreData({ projectId: PROJECT_ID });
 });
 
-describe("games collection", () => {
+describe("get games", () => {
   it("allows get always", async() => {
-    const db = firebase.initializeTestApp({ projectId: PROJECT_ID }).firestore();
+    const db = initDb();
     const testDoc = db.collection("games").doc("testDoc");
     await firebase.assertSucceeds(testDoc.get());
-  })
+  });
+});
 
+describe("write games", () => {
   it ("allows write if user owns the game", async() => {
     const adminDb = initAdminDb();
     const setupDoc = await adminDb.collection("games").add({ ownerId: myUid });
 
     const db = initDb({ auth: myAuth });
-    const testDoc = await db.collection("games").doc(setupDoc.id);
+    const testDoc = db.collection("games").doc(setupDoc.id);
     await firebase.assertSucceeds(testDoc.set({ wasabi: "geek" }));
   });
 
@@ -36,16 +41,21 @@ describe("games collection", () => {
     const setupDoc = await adminDb.collection("games").add({ ownerId: myUid });
 
     const db = initDb({ auth: otherAuth });
-    const testDoc = await db.collection("games").doc(setupDoc.id);
+    const testDoc = db.collection("games").doc(setupDoc.id);
     await firebase.assertFails(testDoc.set({ wasabi: "geek" }));
   });
+});
 
+describe("list games", () => {
+  it("does not normally allow listing ", async() => {
+    const db = initDb();
+    const query = db.collection("games");
+    await firebase.assertFails(query.get());
+  });
 
-  // it("allows listing if ", () => {
-  //   const db = firebase.initializeTestApp({
-  //     projectId: PROJECT_ID,
-  //     auth: { uid: "alice", email: "alice@example.com" }
-  //   });
-  //   const testDoc = db
-  // })
+  it("allows listing of owned games", async() => {
+    const db = initDb({ auth: myAuth });
+    const query = db.collection("games").where("ownerId", "==", myUid);
+    await firebase.assertSucceeds(query.get());
+  });
 });
